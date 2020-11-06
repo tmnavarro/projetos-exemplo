@@ -1,0 +1,12 @@
+{
+  "type": "postgres",
+  "host": "nest_api_postgres",
+  "port": 5432,
+  "username": "root",
+  "password": "root",
+  "database": "nest_api",
+  "entities": [
+    "dist/**/*.entity{.ts,.js}"
+  ],
+  "synchronize": true
+}

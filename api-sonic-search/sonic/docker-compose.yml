@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  nest_api_app:
+    image: valeriansaliou/sonic:v1.3.0
+    volumes:
+      - ./config.cfg:/etc/sonic.cfg
+      - ./store/:/var/lib/sonic/store/
+    ports:
+      - 1491:1491
