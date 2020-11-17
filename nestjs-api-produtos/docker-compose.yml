@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  # api_produtos_app:
+  #   container_name: api_produtos
+  #   build: .
+  #   environment:
+  #     - DB_HOST=api_produtos_postgres
+  #     - DB_PORT=5432
+  #     - DB_USERNAME=root
+  #     - DB_PASSWORD=root
+  #     - DB_NAME=api_produtos
+  #     - APP_SECRET=208b176ff7baf82b932ea6eb5f9afad1
+  #   volumes:
+  #     - .:/home/api
+  #   command: yarn start:dev
+  #   ports:
+  #     - 5000:5000
+
+  api_produtos_postgres:
+    image: postgres:9.6
+    environment:
+      - POSTGRES_DB=nest_db_produtos
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - TZ=GMT
+    ports:
+      - 5432:5432
