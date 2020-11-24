@@ -1,8 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
-import { AuthService } from 'src/auth/auth.service';
-import { JwtStrategy } from 'src/auth/jwt.strategy';
 import { UserEntity } from 'src/entities/user.entity';
 import { Repository } from 'typeorm';
 import { UpdateUserDTO } from './dtos/user.dto';
@@ -21,13 +18,6 @@ export class UserService {
         relations: ['followers'],
       })
     ).toProfile(currentUser);
-  }
-
-  async updateUser(username: string, data: UpdateUserDTO) {
-    await this.userRepository.update({ username }, data);
-    const user = await this.findByUsername(username);
-
-    return user;
   }
 
   async followUser(currentUser: UserEntity, username: string) {

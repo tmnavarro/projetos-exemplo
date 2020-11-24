@@ -1,4 +1,5 @@
 import { IsEmail, IsNotEmpty, MinLength } from 'class-validator';
+import { UserEntity } from 'src/entities/user.entity';
 
 export class LoginDTO {
   @IsEmail()
@@ -18,4 +19,8 @@ export class RegisterDTO extends LoginDTO {
 
 export interface AuthPayload {
   username: string;
+}
+
+export interface AuthResponse extends Partial<UserEntity> {
+  token: string;
 }

@@ -13,6 +13,7 @@ import { IsEmail } from 'class-validator';
 import { AbstractEntity } from './abstract-entity';
 import { ArticleEntity } from './article.entity';
 import { type } from 'os';
+import { CommentEntity } from './comment.entity';
 
 @Entity('users')
 export class UserEntity extends AbstractEntity {
@@ -44,20 +45,24 @@ export class UserEntity extends AbstractEntity {
     type => UserEntity,
     user => user.followers,
   )
-  @JoinTable()
   followee: UserEntity[];
 
   @OneToMany(
     type => ArticleEntity,
     article => article.author,
   )
-  articles: ArticleEntity;
+  articles: ArticleEntity[];
+
+  @OneToMany(
+    type => CommentEntity,
+    comment => comment.author,
+  )
+  comments: CommentEntity[];
 
   @ManyToMany(
     type => ArticleEntity,
     article => article.favoritedBy,
   )
-  @JoinColumn()
   favorites: ArticleEntity[];
 
   @BeforeInsert()

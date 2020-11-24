@@ -7,8 +7,10 @@ import {
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserEntity } from 'src/entities/user.entity';
+import { UpdateUserDTO } from 'src/user/dtos/user.dto';
 import { Repository } from 'typeorm';
-import { LoginDTO, RegisterDTO } from './dtos/auth.dto';
+import { AuthResponse, LoginDTO, RegisterDTO } from './dtos/auth.dto';
+import { ResponseObject } from './dtos/response.dto';
 
 @Injectable()
 export class AuthService {
@@ -23,6 +25,13 @@ export class AuthService {
     const payload = { username: user.username };
     const token = this.jwtService.sign(payload);
     return { ...user, token };
+  }
+
+  async findCurrentUser(username: string, currentUser?: UserEntity) {
+    const user = await this.userRepository.findOne({
+      where: { username },
+    });
+    return this.getToken(user);
   }
 
   async register(credentials: RegisterDTO) {
@@ -56,5 +65,15 @@ export class AuthService {
     } catch (e) {
       throw new InternalServerErrorException();
     }
+  }
+
+  async updateUser(
+    username: string,
+    data: UpdateUserDTO,
+  ): Promise<AuthResponse> {
+    await this.userRepository.update({ username }, data);
+    const user = await this.findCurrentUser(username);
+
+    return user;
   }
 }
