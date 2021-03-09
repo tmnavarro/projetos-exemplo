@@ -4,6 +4,8 @@ import { Payload } from '../types/payload';
 import { UserService } from '../shared/user.service';
 import { AuthService } from './auth.service';
 import { LoginDTO, RegisterDTO } from './dtos/auth.dto';
+import { User } from '../utils/user.decorator';
+import { SellerGuard } from '../guards/seller.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -11,12 +13,6 @@ export class AuthController {
     private userService: UserService,
     private authService: AuthService,
   ) {}
-
-  @Get()
-  @UseGuards(AuthGuard('jwt'))
-  tempAuth() {
-    return { auth: 'works' };
-  }
 
   @Post('login')
   async login(@Body() userDTO: LoginDTO) {

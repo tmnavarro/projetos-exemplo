@@ -1,5 +1,4 @@
 import * as mongoose from 'mongoose';
-import { UserSchema } from './user.schema';
 
 export const ProductSchema = new mongoose.Schema(
   {

@@ -4,7 +4,7 @@ import * as bcrypt from 'bcryptjs';
 export const UserSchema = new mongoose.Schema(
   {
     username: String,
-    password: String,
+    password: { type: String, select: false },
     seller: {
       type: Boolean,
       default: false,
