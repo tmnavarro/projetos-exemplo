@@ -47,10 +47,6 @@ describe('UserService', () => {
     expect(service).toBeDefined();
   });
 
-  it('should be defined', () => {
-    expect(service).toBeDefined();
-  });
-
   describe('When search all Users', () => {
     it('should be findAllUser', async () => {
       const user = TestUtil.giveMeAValidUser();
@@ -102,7 +98,7 @@ describe('UserService', () => {
       mockRepository.create.mockReturnValue(null);
       mockRepository.save.mockReturnValue(user);
 
-      await service.createUser(user).catch(e => {
+      await service.createUser(user).catch((e) => {
         expect(e).toBeInstanceOf(InternalServerErrorException);
         expect(e).toMatchObject({ message: "Can't create user" });
       });
